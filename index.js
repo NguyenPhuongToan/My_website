@@ -1,35 +1,22 @@
-// const express = require('express');
-// const app = express();
-// const port = process.env.PORT || 3000;
-
-// // Serve các file tĩnh từ thư mục public
-// app.use(express.static('public'));
-
-// // Route chính để gửi file index.html
-// app.get('/', (req, res) => {
-//   res.sendFile(__dirname + '/public/index.html');
-// });
-
-// // Khởi động server
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
-
 const express = require('express');
+const path = require('path'); // Import the 'path' module
+
 const app = express();
-const port = process.env.port || 3000
+const port = process.env.PORT || 3000; // Corrected 'port' to uppercase
 
-app.use(express.static('public'));
+// Serve static files from the 'client/dist' directory
+app.use(express.static(path.join(process.cwd(), 'client', 'dist')));
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html')
+app.get('*', (req, res) => {
+  // Send the 'index.html' file
+  res.sendFile(path.join(process.cwd(), 'client', 'dist', 'index.html'));
 });
-app.post('register' , (req,res) =>{
-  const { username, email, password} =req.body;
-  res.json({message: 'User registered successfully'});
 
-})
+app.post('/register', (req, res) => {
+  const { username, email, password } = req.body;
+  res.json({ message: 'User registered successfully' });
+});
 
-app.listen(port, ()=>{
-  console.log('Server is running on port ${port}');
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
