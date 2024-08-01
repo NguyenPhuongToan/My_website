@@ -5,7 +5,7 @@ const port = process.env.port || 3000
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + 'D:\học tập\web\My_website\index.html')
+  res.sendFile(__dirname + '/D:/học tập/web/My_website/index.html')
 });
 app.post('register' , (req,res) =>{
   const { username, email, password} =req.body;
